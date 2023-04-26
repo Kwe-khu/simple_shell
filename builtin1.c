@@ -14,43 +14,43 @@ int _myhistory(info_t *info)
 }
 
 /**
- * unset_alias - sets alias to string
+ * unset_alias - This will set the alias to string
  * @info: parameter struct
- * @str: the string alias
+ * @str: this is the string alias
  *
  * Return: Always 0 on success, 1 on error
  */
 int unset_alias(info_t *info, char *str)
 {
-	char *p, c;
+	char *b, x;
 	int ret;
 
-	p = _strchr(str, '=');
-	if (!p)
+	b = _strchr(str, '=');
+	if (!b)
 		return (1);
-	c = *p;
-	*p = 0;
+	x = *b;
+	*b = 0;
 	ret = delete_node_at_index(&(info->alias),
 		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
-	*p = c;
+	*p = x;
 	return (ret);
 }
 
 /**
- * set_alias - sets alias to string
+ * set_alias - This will set alias to string
  * @info: parameter struct
- * @str: the string alias
+ * @str: this is the string alias
  *
  * Return: Always 0 on success, 1 on error
  */
 int set_alias(info_t *info, char *str)
 {
-	char *p;
+	char *b;
 
-	p = _strchr(str, '=');
-	if (!p)
+	b = _strchr(str, '=');
+	if (!b)
 		return (1);
-	if (!*++p)
+	if (!*++b)
 		return (unset_alias(info, str));
 
 	unset_alias(info, str);
@@ -58,22 +58,22 @@ int set_alias(info_t *info, char *str)
 }
 
 /**
- * print_alias - prints an alias string
+ * print_alias - This will print an alias string
  * @node: the alias node
  *
  * Return: Always 0 on success, 1 on error
  */
 int print_alias(list_t *node)
 {
-	char *p = NULL, *a = NULL;
+	char *b = NULL, *f = NULL;
 
 	if (node)
 	{
-		p = _strchr(node->str, '=');
-		for (a = node->str; a <= p; a++)
+		b = _strchr(node->str, '=');
+		for (f = node->str; f <= b; f++)
 			_putchar(*a);
 		_putchar('\'');
-		_puts(p + 1);
+		_puts(b + 1);
 		_puts("'\n");
 		return (0);
 	}
@@ -81,15 +81,15 @@ int print_alias(list_t *node)
 }
 
 /**
- * _myalias - mimics the alias builtin (man alias)
- * @info: Structure containing potential arguments. Used to maintain
+ * _myalias - This will mimic the alias builtin
+ * @info: This structure contains potential arguments. Used to maintain
  *          constant function prototype.
  *  Return: Always 0
  */
 int _myalias(info_t *info)
 {
-	int i = 0;
-	char *p = NULL;
+	int a = 0;
+	char *b = NULL;
 	list_t *node = NULL;
 
 	if (info->argc == 1)
@@ -102,13 +102,13 @@ int _myalias(info_t *info)
 		}
 		return (0);
 	}
-	for (i = 1; info->argv[i]; i++)
+	for (a = 1; info->argv[a]; a++)
 	{
-		p = _strchr(info->argv[i], '=');
-		if (p)
-			set_alias(info, info->argv[i]);
+		b = _strchr(info->argv[a], '=');
+		if (b)
+			set_alias(info, info->argv[a]);
 		else
-			print_alias(node_starts_with(info->alias, info->argv[i], '='));
+			print_alias(node_starts_with(info->alias, info->argv[a], '='));
 	}
 
 	return (0);
