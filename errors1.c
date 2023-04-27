@@ -2,23 +2,23 @@
 
 /**
  * _erratoi - converts a string to an integer
- * @s: the string to be converted
+ * @y: the string to be converted
  * Return: 0 if no numbers in string, converted number otherwise
  *       -1 on error
  */
-int _erratoi(char *s)
+int _erratoi(char *y)
 {
-	int i = 0;
+	int x = 0;
 	unsigned long int result = 0;
 
-	if (*s == '+')
-		s++;  /* TODO: why does this make main return 255? */
-	for (i = 0;  s[i] != '\0'; i++)
+	if (*y == '+')
+		y++;  /* TODO: why does this make main return 255? */
+	for (x = 0;  y[x] != '\0'; x++)
 	{
-		if (s[i] >= '0' && s[i] <= '9')
+		if (y[x] >= '0' && y[x] <= '9')
 		{
 			result *= 10;
-			result += (s[i] - '0');
+			result += (y[x] - '0');
 			if (result > INT_MAX)
 				return (-1);
 		}
@@ -53,13 +53,13 @@ void print_error(info_t *info, char *estr)
  *
  * Return: number of characters printed
  */
-int print_d(int input, int fd)
+int print_d(int input, int ac)
 {
 	int (*__putchar)(char) = _putchar;
-	int i, count = 0;
+	int x, count = 0;
 	unsigned int _abs_, current;
 
-	if (fd == STDERR_FILENO)
+	if (ac == STDERR_FILENO)
 		__putchar = _eputchar;
 	if (input < 0)
 	{
@@ -70,14 +70,14 @@ int print_d(int input, int fd)
 	else
 		_abs_ = input;
 	current = _abs_;
-	for (i = 1000000000; i > 1; i /= 10)
+	for (x = 1000000000; x > 1; x /= 10)
 	{
-		if (_abs_ / i)
+		if (_abs_ / x)
 		{
-			__putchar('0' + current / i);
+			__putchar('0' + current / x);
 			count++;
 		}
-		current %= i;
+		current %= x;
 	}
 	__putchar('0' + current);
 	count++;
@@ -99,11 +99,11 @@ char *convert_number(long int num, int base, int flags)
 	static char buffer[50];
 	char sign = 0;
 	char *ptr;
-	unsigned long n = num;
+	unsigned long i = num;
 
 	if (!(flags & CONVERT_UNSIGNED) && num < 0)
 	{
-		n = -num;
+		i = -num;
 		sign = '-';
 
 	}
@@ -113,8 +113,8 @@ char *convert_number(long int num, int base, int flags)
 
 	do	{
 		*--ptr = array[n % base];
-		n /= base;
-	} while (n != 0);
+		i /= base;
+	} while (i != 0);
 
 	if (sign)
 		*--ptr = sign;
@@ -129,12 +129,12 @@ char *convert_number(long int num, int base, int flags)
  */
 void remove_comments(char *buf)
 {
-	int i;
+	int u;
 
-	for (i = 0; buf[i] != '\0'; i++)
-		if (buf[i] == '#' && (!i || buf[i - 1] == ' '))
+	for (u = 0; buf[u] != '\0'; u++)
+		if (buf[u] == '#' && (!u || buf[u - 1] == ' '))
 		{
-			buf[i] = '\0';
+			buf[u] = '\0';
 			break;
 		}
 }
